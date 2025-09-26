@@ -1,9 +1,10 @@
+import ProductInterface from "../../../domain/product/entity/product.interface";
 import ProductFactory from "../../../domain/product/factory/product.factory";
 import { ProductType } from "../create/create.product.dto";
 import { InputUpdateProductDto } from "./update.product.dto";
 import UpdateProductUseCase from "./update.product.usecase";
 
-const product = ProductFactory.create(ProductType.A, "Product A", 100);
+let product: ProductInterface;
 
 const MockRepository = () => {
   return {
@@ -13,6 +14,11 @@ const MockRepository = () => {
     update: jest.fn(),
   };
 };
+
+beforeEach(() => {
+  jest.clearAllMocks();
+    product = ProductFactory.create(ProductType.A, "Product A", 100);
+});
 
 describe("Unit test for product update use case", () => {
     it("should update a product A", async () => {
